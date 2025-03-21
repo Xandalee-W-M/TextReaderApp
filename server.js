@@ -15,7 +15,7 @@ const upload = multer({ storage: storage });
 
 // Root route to confirm the server is running
 app.get("/", (req, res) => {
-    res.send("Text Reader App is running! 🚀");
+    res.send("Text Reader App is running!");
 });
 
 // API endpoint for image upload and text extraction
@@ -35,5 +35,5 @@ app.post("/upload", upload.single("image"), async (req, res) => {
 
 // Start server
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server running on http://localhost:${port}`);
 });
