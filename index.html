@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Reader App</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to the CSS file -->
+</head>
+<body>
+    <h2>Upload an Image to Extract Text</h2>
+    <input type="file" id="imageInput">
+    <button onclick="uploadImage()">Extract Text</button>
+    <p id="result"></p>
+
+    <script>
+        function uploadImage() {
+            const fileInput = document.getElementById("imageInput").files[0];
+            if (!fileInput) return alert("Please select an image.");
+
+            const formData = new FormData();
+            formData.append("image", fileInput);
+
+            fetch("http://localhost:5000/upload", {
+                method: "POST",
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                document.getElementById("result").innerText = data.text || "No text detected.";
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("Failed to extract text.");
+            });
+        }
+    </script>
+</body>
+</html>
