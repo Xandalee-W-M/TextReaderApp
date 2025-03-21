@@ -1,16 +1,9 @@
 services:
   - name: text-reader-app
     type: web
-    runtime: node # Change to python if using Flask/Django
-    repo: https://github.com/Xandalee-W-M/TextReaderApp
-    branch: main
-    buildCommand: npm install && npm run build # Change to pip install -r requirements.txt for Python
-    startCommand: npm start # Change to gunicorn app:app for Flask
-    plan: free
-services:
-  - name: text-reader-app
-    type: static
+    runtime: node
     repo: https://github.com/Xandalee-W-M/TextReaderApp
     branch: main
     buildCommand: npm install && npm run build
-    staticPublishPath: dist # Change to build for React
+    startCommand: node server.js
+    plan: free
