@@ -2,21 +2,22 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 const Tesseract = require("tesseract.js");
+const path = require("path");
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors()); // Enable CORS
 app.use(express.static("public")); // Serve static files
 
+// Serve index.html
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 // Multer setup for file upload
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
-// Root route to confirm the server is running
-app.get("/", (req, res) => {
-    res.send("Text Reader App is running!");
-});
 
 // API endpoint for image upload and text extraction
 app.post("/upload", upload.single("image"), async (req, res) => {
